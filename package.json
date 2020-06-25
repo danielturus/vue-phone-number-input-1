@@ -25,6 +25,8 @@
     "nuxt/"
   ],
   "dependencies": {
+    "bootstrap": "^4.5.0",
+    "bootstrap-vue": "^2.15.0",
     "libphonenumber-js": "^1.7.51",
     "style-helpers": "^1.0.2",
     "vue": "^2.6.11",

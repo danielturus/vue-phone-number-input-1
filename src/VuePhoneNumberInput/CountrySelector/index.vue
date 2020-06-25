@@ -7,74 +7,64 @@
       'has-hint': hint,
       'has-error': error,
       'is-disabled': disabled,
-      'is-dark': dark,
       'no-flags': noFlags,
       'has-list-open': hasListOpen,
       'is-valid': valid
-    }, size]"
-    class="country-selector"
+    }]"
+    class="position-relative"
     @blur.capture="handleBlur"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
   >
-    <div
-      v-if="value && !noFlags"
-      class="country-selector__country-flag"
-      @click.stop="toggleList"
-    >
-      <div :class="`iti-flag-small iti-flag ${value.toLowerCase()}`" />
-    </div>
-    <input
-      :id="id"
-      ref="CountrySelector"
-      :value="callingCode"
-      :placeholder="label"
-      :disabled="disabled"
-      class="country-selector__input"
-      readonly
-      :style="[radiusLeftStyle, inputBorderStyle, inputBoxShadowStyle, inputBgColor]"
-      @focus="isFocus = true"
-      @keydown="keyboardNav"
-      @click.stop="toggleList"
-    >
-    <div
-      class="country-selector__toggle"
-      @click.stop="toggleList"
-    >
-      <slot name="arrow">
-        <svg
-          mlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          class="country-selector__toggle__arrow"
-        >
-          <path
-            class="arrow"
-            d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
-          />
-          <path
-            fill="none"
-            d="M0 0h24v24H0V0z"
-          />
-        </svg>
-      </slot>
-    </div>
     <label
       ref="label"
-      :style="[labelColorStyle]"
-      class="country-selector__label"
       @click.stop="toggleList"
     >
       {{ hint || label }}
     </label>
+    <div class="position-relative ">
+      <div
+        v-if="value && !noFlags"
+        class="position-absolute inset-0 d-flex align-items-center pl-2"
+        @click.stop="toggleList"
+      >
+        <div :class="`iti-flag-small iti-flag ${value.toLowerCase()}`" />
+      </div>
+      <b-form-input
+        :id="id"
+        ref="CountrySelector"
+        :value="callingCode"
+        :placeholder="label"
+        :disabled="disabled"
+        class="pl-5 user-select-none cursor-pointer"
+        readonly
+        @focus="isFocus = true"
+        @keydown="keyboardNav"
+        @click.stop="toggleList"
+      />
+      <div
+        class="position-absolute inset-0 d-flex justify-content-end align-items-center pr-2"
+        @click.stop="toggleList"
+      >
+        <div class="">
+          <slot name="arrow" />
+        </div>
+      </div>
+    </div>
     <Transition name="slide">
+      <!-- <div
+        v-show="hasListOpen"
+        ref="countriesList"
+        class="dropdown-menu overflow-hidden"
+        :class="{ 'has-calling-code': showCodeOnList, 'show': true}"
+        :style="[listHeight]"
+      > -->
       <div
         v-show="hasListOpen"
         ref="countriesList"
-        class="country-selector__list"
-        :class="{ 'has-calling-code': showCodeOnList }"
-        :style="[radiusStyle, listHeight, inputBgColor]"
+        class="dropdown-menu overflow-hidden overflow-y-auto overflow-x-hidden"
+        :class="{ 'has-calling-code': showCodeOnList, 'show': true}"
+        :style="[listHeight]"
       >
         <RecycleScroller
           v-slot="{ item }"
@@ -88,27 +78,28 @@
               { 'selected': value === item.iso2 },
               { 'keyboard-selected': value !== item.iso2 && tmpValue === item.iso2 }
             ]"
-            class="flex align-center country-selector__list__item"
-            :style="[
-              itemHeight,
-              value === item.iso2 ? bgItemSelectedStyle : null
-            ]"
             tabindex="-1"
-            type="button"
+            class="dropdown-item"
             @click.stop="updateValue(item.iso2)"
           >
-            <div
-              v-if="!noFlags"
-              class="country-selector__list__item__flag-container"
-            >
-              <div :class="`iti-flag-small iti-flag ${item.iso2.toLowerCase()}`" />
-            </div>
-            <span
-              v-if="showCodeOnList"
-              class="country-selector__list__item__calling-code flex-fixed"
-            >+{{ item.dialCode }}</span>
-            <div class="dots-text">
-              {{ item.name }}
+            <div class="d-flex align-items-center w-100">
+              <div
+                v-if="!noFlags"
+                class="mr-3"
+              >
+                <div class="w-20px">
+                  <div :class="`iti-flag-small iti-flag ${item.iso2.toLowerCase()}`" />
+                </div>
+              </div>
+              <span
+                v-if="showCodeOnList"
+                class="w-45px text-muted flex-grow-0 flex-shrink-0 flex-basis-auto mr-1"
+              >
+                +{{ item.dialCode }}
+              </span>
+              <div class="flex-grow-1">
+                {{ item.name }}
+              </div>
             </div>
           </button>
         </RecycleScroller>
@@ -134,11 +125,9 @@
       value: { type: [String, Object], default: null },
       label: { type: String, default: 'Choose country' },
       hint: { type: String, default: String },
-      size: { type: String, default: String },
       error: { type: Boolean, default: false },
       disabled: { type: Boolean, default: false },
       valid: { type: Boolean, default: false },
-      dark: { type: Boolean, default: false },
       items: { type: Array, default: Array, required: true },
       preferredCountries: { type: Array, default: null },
       onlyCountries: { type: Array, default: null },
@@ -232,9 +221,10 @@
         this.closeList()
       },
       scrollToSelectedOnFocus (arrayIndex) {
+        const countryPositionFromTopInPx = arrayIndex * (this.countriesHeight + 1) - ((this.countriesHeight + 1) * 3)
         this.$nextTick(() => {
           // this.indexItemToShow = arrayIndex - 3
-          this.$refs.countriesList.scrollTop = arrayIndex * (this.countriesHeight + 1) - ((this.countriesHeight + 1) * 3)
+          this.$refs.countriesList.scrollTop = countryPositionFromTopInPx
         })
       },
       keyboardNav (e) {
@@ -293,99 +283,58 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables.scss';
-  @import 'style-helpers';
+  // @import 'style-helpers';
   @import './assets/iti-flags/flags.css';
+  .w-20px {
+    width: 20px;
+  }
 
+  .w-45px {
+    width: 45px;
+  }
+
+  .flex-basis-auto {
+    flex-basis: auto;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .overflow-y-auto {
+    overflow-y: auto!important;
+  }
+
+  .overflow-x-hidden {
+      overflow-x: hidden!important;
+  }
+
+  .inset-0 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   // Light Theme
   .country-selector {
-    font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    position: relative;
-    height: 40px;
-    min-height: 40px;
     z-index: 0;
     user-select: none;
 
-    &:hover {
-      z-index: 1;
-    }
+    // &__country-flag {
+    //   margin: auto 0;
+    //   position: absolute;
+    //   top: 21px;
+    //   left: 11px;
+    //   z-index: 1;
+    //   cursor: pointer;
 
-    &__label {
-      position: absolute;
-      top: 3px;
-      cursor: pointer;
-      left: 11px;
-      transform: translateY(25%);
-      opacity: 0;
-      transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-      font-size: 11px;
-      color: $secondary-color;
-    }
-
-    &__input {
-      cursor: pointer;
-      background-color: $bg-color;
-      position: relative;
-      width: 100%;
-      height: 40px;
-      min-height: 40px;
-      padding-right: 22px;
-      font-weight: 400;
-      appearance: none;
-      outline: none;
-      border: 1px solid $third-color;
-      font-size: 13px;
-      z-index: 0;
-      padding-left: 8px;
-      color: $text-color;
-    }
-
-    &__toggle {
-      position: absolute;
-      right: 5px;
-      top: calc(50% - 10px);
-      transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-      text-align: center;
-      display: inline-block;
-      cursor: pointer;
-      height: 24px;
-
-      &__arrow {
-        color: $secondary-color;
-
-        path.arrow {
-          fill: $secondary-color;
-        }
-      }
-    }
-
-    &__country-flag {
-      margin: auto 0;
-      position: absolute;
-      top: 21px;
-      left: 11px;
-      z-index: 1;
-      cursor: pointer;
-
-      img {
-        position: absolute;
-      }
-    }
+    //   img {
+    //     position: absolute;
+    //   }
+    // }
 
     &__list {
-      max-width: 100%;
-      top: 100%;
-      width: 100%;
-      min-width: 230px;
-      position: absolute;
-      background-color: $bg-color;
-      overflow: hidden;
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-      z-index: 9;
-      list-style: none;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 0;
-      margin: 0;
+
 
       &.has-calling-code {
         min-width: 270px;
@@ -425,70 +374,6 @@
             color: #FFF;
           }
         }
-      }
-    }
-
-    // Dark Theme
-    &.is-dark {
-      .country-selector {
-        &__input {
-          cursor: pointer;
-          color: $secondary-color-dark;
-
-          &::-webkit-input-placeholder {
-            color: $secondary-color-dark;
-          }
-
-          &::-moz-placeholder {
-            color: $secondary-color-dark;
-          }
-
-          &:-ms-input-placeholder {
-            color: $secondary-color-dark;
-          }
-
-          &::-ms-input-placeholder {
-            color: $secondary-color-dark;
-          }
-
-          &:-moz-placeholder {
-            color: $secondary-color-dark;
-          }
-
-          &::placeholder {
-            color: $secondary-color-dark;
-          }
-        }
-
-        &__toggle {
-          &__arrow {
-            color: $secondary-color-dark;
-
-            path.arrow {
-              fill: $secondary-color-dark;
-            }
-          }
-        }
-
-        &__list {
-          &__item {
-            color: $text-color-dark;
-
-            &:hover,
-            &.keyboard-selected {
-              background-color: lighten($hover-color-dark, 10%);
-            }
-          }
-
-          &__calling-code {
-            color: $muted-color-dark;
-          }
-        }
-      }
-
-      .country-selector__input,
-      .country-selector__list {
-        color: $secondary-color-dark;
       }
     }
 
@@ -533,140 +418,6 @@
       .country-selector__input {
         padding-top: 14px;
       }
-    }
-
-    // Disable theme
-    &.is-disabled {
-      .country-selector {
-        cursor: not-allowed;
-
-        &__input {
-          border-color: #CCC;
-          background-color: #F2F2F2;
-          color: $disabled-color;
-
-          &::-webkit-input-placeholder {
-            color: $disabled-color;
-          }
-
-          &::-moz-placeholder {
-            color: $disabled-color;
-          }
-
-          &:-ms-input-placeholder {
-            color: $disabled-color;
-          }
-
-          &::-ms-input-placeholder {
-            color: $disabled-color;
-          }
-
-          &:-moz-placeholder {
-            color: $disabled-color;
-          }
-
-          &::placeholder {
-            color: $disabled-color;
-          }
-        }
-
-        &__label,
-        &__input,
-        &__toggle__arrow,
-        &__country-flag,
-        &__country-flag > div {
-          cursor: not-allowed;
-          color: $disabled-color;
-        }
-      }
-    }
-
-    &.no-flags {
-      .country-selector__input {
-        padding-left: 10px;
-      }
-    }
-
-    &.sm {
-      height: 36px;
-      min-height: 36px;
-
-      .country-selector__input {
-        height: 36px;
-        min-height: 36px;
-        font-size: 12px;
-      }
-
-      .country-selector__label {
-        font-size: 10px;
-      }
-
-      .country-selector__country-flag {
-        top: 16px;
-
-        img {
-          zoom: 0.3;
-          color: red;
-          /* stylelint-disable */
-          -moz-transform: scale(0.3);
-          -moz-transform-origin: 0 0;
-          /* stylelint-enable */
-        }
-      }
-
-      &.has-value {
-        .country-selector__input {
-          padding-top: 12px;
-        }
-      }
-    }
-
-    &.lg {
-      height: 48px;
-      min-height: 48px;
-
-      .country-selector__input {
-        height: 48px;
-        min-height: 48px;
-        font-size: 14px;
-      }
-
-      .country-selector__label {
-        font-size: 14px;
-      }
-
-      .country-selector__country-flag {
-        top: 25px;
-
-        img {
-          zoom: 0.45;
-          /* stylelint-disable */
-          -moz-transform: scale(0.45);
-          -moz-transform-origin: 0 0;
-          /* stylelint-enable */
-        }
-      }
-
-      &.has-value {
-        .country-selector__input {
-          padding-top: 18px;
-        }
-      }
-    }
-
-    .slide-enter-active,
-    .slide-leave-active {
-      opacity: 1;
-      z-index: 998;
-      transition: all 0.3s;
-      transform: translateY(0);
-    }
-
-    .slide-enter,
-    .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
-      opacity: 0;
-      z-index: 998;
-      transform: translateY(-20px);
     }
   }
 </style>

@@ -56,6 +56,7 @@
             <VuePhoneNumberInput
               id="phoneNumber1"
               v-model="phoneNumber"
+              :countries-height="32"
               color="dodgerblue"
               :dark="dark"
               :disabled="disabled"
@@ -66,137 +67,27 @@
               :error="hasErrorActive"
               class="mb-2"
               @update="onUpdate"
-            />
+            >
+              <template #arrow>
+                <svg
+                  mlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="country-selector__toggle__arrow"
+                >
+                  <path
+                    class="arrow"
+                    d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                  />
+                  <path
+                    fill="none"
+                    d="M0 0h24v24H0V0z"
+                  />
+                </svg>
+              </template>
+            </VuePhoneNumberInput>
             <b>v-model</b> : {{ phoneNumber }}
-          </div>
-
-          <div class="component">
-            <h4 class="mb-2">
-              Datas returned with "update" event
-            </h4>
-            <div class="flex flex-wrap">
-              <table class="mr-2">
-                <tr>
-                  <th>Key</th>
-                  <th>Value</th>
-                </tr>
-                <tr
-                  v-for="item in resultsTable"
-                  :key="item"
-                  class="w-100"
-                >
-                  <td align="left">
-                    {{ item }}
-                  </td>
-                  <td>{{ results[item] }}</td>
-                </tr>
-              </table>
-              <div class="flex flex-direction-column flex-1">
-                <b>Payload:</b>
-                {{ results }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="component-container">
-          <h3 class="mb-2">
-            With translations (FR) - No flags - Dark - No Use Browser Locale
-          </h3>
-          <div class="component mb-2">
-            <VuePhoneNumberInput
-              id="phoneNumber2"
-              v-model="phoneNumber2"
-              :translations="translations"
-              no-flags
-              required
-              no-use-browser-locale
-              :loader="hasLoaderActive"
-              :error="hasErrorActive"
-              class="mb-2"
-              clearable
-              color="#FF9933"
-              dark
-              dark-color="#303144"
-              :border-radius="8"
-              show-code-on-list
-              @update="onUpdate2"
-            />
-            <b>v-model</b> : {{ phoneNumber2 }}
-          </div>
-          <div class="component">
-            <h4 class="mb-2">
-              Datas returned with "update" event
-            </h4>
-            <div class="flex flex-wrap">
-              <table class="mr-2">
-                <tr>
-                  <th>Key</th>
-                  <th>Value</th>
-                </tr>
-                <tr
-                  v-for="item in resultsTable2"
-                  :key="item"
-                  class="w-100"
-                >
-                  <td align="left">
-                    {{ item }}
-                  </td>
-                  <td>{{ results2[item] }}</td>
-                </tr>
-              </table>
-              <div class="flex flex-direction-column  flex-1">
-                <b>Payload:</b>
-                {{ results2 }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="component-container">
-        <h3 class="mb-2">
-          No country chooser (use `default-country-code` to set the country)
-        </h3>
-        <div class="component mb-2">
-          <VuePhoneNumberInput
-            id="phoneNumber3"
-            v-model="phoneNumber3"
-            :loader="hasLoaderActive"
-            :error="hasErrorActive"
-            :dark="dark"
-            :default-country-code="defaultCountry"
-            no-country-selector
-            class="mb-2"
-            @update="onUpdate3"
-          />
-          <b>v-model</b> : {{ phoneNumber3 }}
-          <br>
-          <b>Current country code</b> : {{ defaultCountry }}
-        </div>
-        <div class="component">
-          <h4 class="mb-2">
-            Datas returned with "update" event
-          </h4>
-          <div class="flex flex-wrap">
-            <table class="mr-2">
-              <tr>
-                <th>Key</th>
-                <th>Value</th>
-              </tr>
-              <tr
-                v-for="item in resultsTable3"
-                :key="item"
-                class="w-100"
-              >
-                <td align="left">
-                  {{ item }}
-                </td>
-                <td>{{ results3[item] }}</td>
-              </tr>
-            </table>
-            <div class="flex flex-direction-column flex-1">
-              <b>Payload:</b>
-              {{ results3 }}
-            </div>
           </div>
         </div>
       </div>
@@ -269,11 +160,13 @@ body {
 </style>
 
 <style lang="scss" scoped>
+
+
+
 @import '@/assets/scss/variables';
 @import 'style-helpers';
 
 #app {
-  font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
   color: $text-color;
   height: 100%;
   min-height: 100%;
