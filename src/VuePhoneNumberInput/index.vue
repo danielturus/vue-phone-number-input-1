@@ -315,7 +315,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import 'style-helpers';
+  // @import 'style-helpers';
 
   .vue-phone-number-input {
     .select-country-container {

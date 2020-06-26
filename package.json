@@ -25,14 +25,13 @@
     "nuxt/"
   ],
   "dependencies": {
-    "bootstrap": "^4.5.0",
-    "bootstrap-vue": "^2.15.0",
     "libphonenumber-js": "^1.7.51",
-    "style-helpers": "^1.0.2",
-    "vue": "^2.6.11",
     "vue-virtual-scroller": "^1.0.10"
   },
   "devDependencies": {
+    "bootstrap": "^4.5.0",
+    "vue": "^2.6.11",
+    "bootstrap-vue": "^2.15.0",
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^4.3.1",
     "@vue/cli-service": "^4.3.1",

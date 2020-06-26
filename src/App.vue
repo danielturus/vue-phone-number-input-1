@@ -164,7 +164,7 @@ body {
 
 
 @import '@/assets/scss/variables';
-@import 'style-helpers';
+// @import 'style-helpers';
 
 #app {
   color: $text-color;
