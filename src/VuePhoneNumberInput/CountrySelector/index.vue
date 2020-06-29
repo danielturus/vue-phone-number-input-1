@@ -10,7 +10,7 @@
       'no-flags': noFlags,
       'has-list-open': hasListOpen,
       'is-valid': valid
-    }]"
+    }, countrySelectorClasses]"
     class="position-relative"
     @blur.capture="handleBlur"
     @mouseenter="updateHoverState(true)"
@@ -22,7 +22,7 @@
     >
       {{ hint || label }}
     </label>
-    <div class="position-relative ">
+    <div class="position-relative">
       <div
         v-if="value && !noFlags"
         class="position-absolute inset-0 d-flex align-items-center pl-2"
@@ -34,7 +34,6 @@
         :id="id"
         ref="CountrySelector"
         :value="callingCode"
-        :placeholder="label"
         :disabled="disabled"
         class="pl-5 user-select-none cursor-pointer"
         readonly
@@ -46,9 +45,7 @@
         class="position-absolute inset-0 d-flex justify-content-end align-items-center pr-2"
         @click.stop="toggleList"
       >
-        <div class="">
-          <slot name="arrow" />
-        </div>
+        <slot name="arrow" />
       </div>
     </div>
     <Transition name="slide">
@@ -80,6 +77,7 @@
             ]"
             tabindex="-1"
             class="dropdown-item"
+            type="button"
             @click.stop="updateValue(item.iso2)"
           >
             <div class="d-flex align-items-center w-100">
@@ -134,7 +132,8 @@
       ignoredCountries: { type: Array, default: null },
       noFlags: { type: Boolean, default: false },
       countriesHeight: { type: Number, default: 35 },
-      showCodeOnList: { type: Boolean, default: false }
+      showCodeOnList: { type: Boolean, default: false },
+      countrySelectorClasses: { type: String, default: '' }
     },
     data () {
       return {

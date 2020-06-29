@@ -9,7 +9,7 @@
       'is-disabled': disabled,
       'is-dark': dark,
       'has-hint': hint
-    }, size]"
+    }, size, phoneInputClasses]"
     class="input-tel"
     @click="focusInput"
     @mouseenter="updateHoverState(true)"
@@ -65,7 +65,8 @@
       required: { type: Boolean, default: false },
       loader: { type: Boolean, default: false },
       clearable: { type: Boolean, default: false },
-      noCountrySelector: { type: Boolean, default: false }
+      noCountrySelector: { type: Boolean, default: false },
+      phoneInputClasses: { type: String, default: '' },
     },
     data () {
       return {

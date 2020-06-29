@@ -28,6 +28,7 @@
         :dark="dark"
         :theme="theme"
         class="input-country-selector"
+        :country-selector-classes="countrySelectorClasses"
       >
         <slot
           slot="arrow"
@@ -52,6 +53,7 @@
         v-bind="$attrs"
         :theme="theme"
         class="input-phone-number"
+        :phone-input-classes="phoneInputClasses"
         @keydown="(e) => { lastKeyPressed = e.keyCode }"
         @focus="$emit('phone-number-focused')"
         @blur="$emit('phone-number-blur')"
@@ -115,7 +117,9 @@
       noCountrySelector: { type: Boolean, default: false },
       showCodeOnList: { type: Boolean, default: false },
       dark: { type: Boolean, default: false },
-      borderRadius: { type: Number, default: 4 }
+      borderRadius: { type: Number, default: 4 },
+      countrySelectorClasses: { type: String, default: '' },
+      phoneInputClasses: { type: String, default: '' },
     },
     data () {
       return {
@@ -314,29 +318,3 @@
     }
   }
 </script>
-<style lang="scss" scoped>
-  // @import 'style-helpers';
-
-  .vue-phone-number-input {
-    .select-country-container {
-      flex: 0 0 120px;
-      width: 120px;
-      min-width: 120px;
-      max-width: 120px;
-    }
-
-    &.sm .select-country-container {
-      flex: 0 0 110px;
-      width: 110px;
-      min-width: 110px;
-      max-width: 110px;
-    }
-
-    &.lg .select-country-container {
-      flex: 0 0 130px;
-      width: 130px;
-      min-width: 130px;
-      max-width: 130px;
-    }
-  }
-</style>

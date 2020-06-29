@@ -57,8 +57,6 @@
               id="phoneNumber1"
               v-model="phoneNumber"
               :countries-height="32"
-              color="dodgerblue"
-              :dark="dark"
               :disabled="disabled"
               :ignored-countries="countriesIgnored"
               :preferred-countries="countriesList"
@@ -66,6 +64,8 @@
               clearable
               :error="hasErrorActive"
               class="mb-2"
+              country-selector-classes="mr-5"
+              phone-input-classes="mr-5"
               @update="onUpdate"
             >
               <template #arrow>
