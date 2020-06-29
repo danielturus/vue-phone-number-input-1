@@ -36,7 +36,6 @@
         :value="callingCode"
         :disabled="disabled"
         class="pl-5 user-select-none cursor-pointer"
-        readonly
         @focus="isFocus = true"
         @keydown="keyboardNav"
         @click.stop="toggleList"

@@ -22,7 +22,7 @@
       class="input-tel__label"
       @click="focusInput"
     >
-      {{ hintValue || labelValue }}
+      {{ labelValue }}
     </label>
     <b-form-input
       :id="id"
