@@ -6,6 +6,7 @@
   >
     <div
       v-if="!noCountrySelector"
+      :class="selectCountryContainerClasses"
       class="select-country-container"
     >
       <CountrySelector
@@ -36,7 +37,7 @@
         />
       </CountrySelector>
     </div>
-    <div class="flex-1">
+    <div :class="phoneInputContainerClasses">
       <InputTel
         :id="`${uniqueId}_phone_number`"
         ref="PhoneNumberInput"
@@ -119,7 +120,9 @@
       dark: { type: Boolean, default: false },
       borderRadius: { type: Number, default: 4 },
       countrySelectorClasses: { type: String, default: '' },
+      selectCountryContainerClasses: { type: String, default: '' },
       phoneInputClasses: { type: String, default: '' },
+      phoneInputContainerClasses: { type: String, default: '' },
     },
     data () {
       return {

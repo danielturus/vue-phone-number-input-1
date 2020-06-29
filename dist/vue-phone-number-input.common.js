@@ -7049,12 +7049,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da14413-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/VuePhoneNumberInput/index.vue?vue&type=template&id=4750b5aa&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-phone-number-input flex",class:[{ 'dark': _vm.dark }, _vm.size],attrs:{"id":_vm.id}},[(!_vm.noCountrySelector)?_c('div',{staticClass:"select-country-container"},[_c('CountrySelector',{ref:"CountrySelector",staticClass:"input-country-selector",attrs:{"id":(_vm.uniqueId + "_country_selector"),"items":_vm.codesCountries,"countries-height":_vm.countriesHeight,"error":_vm.shouldChooseCountry,"hint":_vm.shouldChooseCountry ? _vm.t.countrySelectorError : null,"disabled":_vm.disabled,"valid":_vm.isValid && !_vm.noValidatorState,"preferred-countries":_vm.preferredCountries,"only-countries":_vm.onlyCountries,"ignored-countries":_vm.ignoredCountries,"label":_vm.t.countrySelectorLabel,"no-flags":_vm.noFlags,"show-code-on-list":_vm.showCodeOnList,"size":_vm.size,"dark":_vm.dark,"theme":_vm.theme,"country-selector-classes":_vm.countrySelectorClasses},model:{value:(_vm.countryCode),callback:function ($$v) {_vm.countryCode=$$v},expression:"countryCode"}},[_vm._t("arrow",null,{"slot":"arrow"})],2)],1):_vm._e(),_c('div',{staticClass:"flex-1"},[_c('InputTel',_vm._b({ref:"PhoneNumberInput",staticClass:"input-phone-number",attrs:{"id":(_vm.uniqueId + "_phone_number"),"label":_vm.t.phoneNumberLabel,"hint":_vm.hintValue,"dark":_vm.dark,"disabled":_vm.disabled,"size":_vm.size,"error":_vm.error,"valid":_vm.isValid && !_vm.noValidatorState,"required":_vm.required,"no-country-selector":_vm.noCountrySelector,"theme":_vm.theme,"phone-input-classes":_vm.phoneInputClasses},on:{"keydown":function (e) { _vm.lastKeyPressed = e.keyCode },"focus":function($event){return _vm.$emit('phone-number-focused')},"blur":function($event){return _vm.$emit('phone-number-blur')}},model:{value:(_vm.phoneNumber),callback:function ($$v) {_vm.phoneNumber=$$v},expression:"phoneNumber"}},'InputTel',_vm.$attrs,false))],1)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da14413-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/VuePhoneNumberInput/index.vue?vue&type=template&id=1f0b5a84&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-phone-number-input flex",class:[{ 'dark': _vm.dark }, _vm.size],attrs:{"id":_vm.id}},[(!_vm.noCountrySelector)?_c('div',{staticClass:"select-country-container",class:_vm.selectCountryContainerClasses},[_c('CountrySelector',{ref:"CountrySelector",staticClass:"input-country-selector",attrs:{"id":(_vm.uniqueId + "_country_selector"),"items":_vm.codesCountries,"countries-height":_vm.countriesHeight,"error":_vm.shouldChooseCountry,"hint":_vm.shouldChooseCountry ? _vm.t.countrySelectorError : null,"disabled":_vm.disabled,"valid":_vm.isValid && !_vm.noValidatorState,"preferred-countries":_vm.preferredCountries,"only-countries":_vm.onlyCountries,"ignored-countries":_vm.ignoredCountries,"label":_vm.t.countrySelectorLabel,"no-flags":_vm.noFlags,"show-code-on-list":_vm.showCodeOnList,"size":_vm.size,"dark":_vm.dark,"theme":_vm.theme,"country-selector-classes":_vm.countrySelectorClasses},model:{value:(_vm.countryCode),callback:function ($$v) {_vm.countryCode=$$v},expression:"countryCode"}},[_vm._t("arrow",null,{"slot":"arrow"})],2)],1):_vm._e(),_c('div',{class:_vm.phoneInputContainerClasses},[_c('InputTel',_vm._b({ref:"PhoneNumberInput",staticClass:"input-phone-number",attrs:{"id":(_vm.uniqueId + "_phone_number"),"label":_vm.t.phoneNumberLabel,"hint":_vm.hintValue,"dark":_vm.dark,"disabled":_vm.disabled,"size":_vm.size,"error":_vm.error,"valid":_vm.isValid && !_vm.noValidatorState,"required":_vm.required,"no-country-selector":_vm.noCountrySelector,"theme":_vm.theme,"phone-input-classes":_vm.phoneInputClasses},on:{"keydown":function (e) { _vm.lastKeyPressed = e.keyCode },"focus":function($event){return _vm.$emit('phone-number-focused')},"blur":function($event){return _vm.$emit('phone-number-blur')}},model:{value:(_vm.phoneNumber),callback:function ($$v) {_vm.phoneNumber=$$v},expression:"phoneNumber"}},'InputTel',_vm.$attrs,false))],1)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/VuePhoneNumberInput/index.vue?vue&type=template&id=4750b5aa&
+// CONCATENATED MODULE: ./src/VuePhoneNumberInput/index.vue?vue&type=template&id=1f0b5a84&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.object.get-own-property-descriptors.js
 var es7_object_get_own_property_descriptors = __webpack_require__("8e6e");
@@ -14125,6 +14125,7 @@ function VuePhoneNumberInputvue_type_script_lang_js_objectSpread(target) { for (
 //
 //
 //
+//
 
 
 
@@ -14260,7 +14261,15 @@ var VuePhoneNumberInputvue_type_script_lang_js_isCountryAvailable = function isC
       type: String,
       default: ''
     },
+    selectCountryContainerClasses: {
+      type: String,
+      default: ''
+    },
     phoneInputClasses: {
+      type: String,
+      default: ''
+    },
+    phoneInputContainerClasses: {
       type: String,
       default: ''
     }
