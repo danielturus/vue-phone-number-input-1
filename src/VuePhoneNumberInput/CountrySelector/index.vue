@@ -35,7 +35,8 @@
         ref="CountrySelector"
         :value="callingCode"
         :disabled="disabled"
-        class="pl-5 user-select-none cursor-pointer"
+        class="pl-5 user-select-none cursor-pointer bg-color-initial"
+        readonly
         @focus="isFocus = true"
         @keydown="keyboardNav"
         @click.stop="toggleList"
@@ -48,13 +49,6 @@
       </div>
     </div>
     <Transition name="slide">
-      <!-- <div
-        v-show="hasListOpen"
-        ref="countriesList"
-        class="dropdown-menu overflow-hidden"
-        :class="{ 'has-calling-code': showCodeOnList, 'show': true}"
-        :style="[listHeight]"
-      > -->
       <div
         v-show="hasListOpen"
         ref="countriesList"
@@ -312,6 +306,9 @@
     bottom: 0;
     left: 0;
     right: 0;
+  }
+  .bg-color-initial {
+    background-color: initial;
   }
   // Light Theme
   .country-selector {
